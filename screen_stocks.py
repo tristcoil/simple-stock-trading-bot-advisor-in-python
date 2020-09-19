@@ -1,7 +1,11 @@
 #!/home/coil/anaconda3/bin/python3
 
+# --------------------------------------------------------------
+# this script only generates signals to go long
+# it is intended to generate buy signals for long term investing
+# --------------------------------------------------------------
 
-#my program to run on google free tier VM
+# my program to run on google free tier VM
 # stock screener
 
 #Installing collected packages: multitasking, numpy, python-dateutil, pandas, yfinance
@@ -155,7 +159,7 @@ def construct_df(ticker):
 
 
 
-def send_email(data_rsi, data_ema, username, password):
+def send_email(data_rsi, data_200_ema, data_50_ema, username, password):
 
     smtp_ssl_host = 'smtp.gmail.com'
     smtp_ssl_port = 465
@@ -168,12 +172,18 @@ def send_email(data_rsi, data_ema, username, password):
                 "ticker/s: \n"
                  + data_rsi + "\n")
 
-    msg_body_ema = ("went above 200 EMA recently \n"
+    msg_body_200_ema = ("went above 200 EMA recently \n"
                 "possible long entry \n"
                 "ticker/s: \n"
-                 + data_ema)
+                 + data_200_ema + "\n")
 
-    msg_body = msg_body_rsi + msg_body_ema
+    msg_body_50_ema = ("in vicinity of 50 EMA \n"
+                "alerting \n"
+                "ticker/s: \n"
+                 + data_50_ema + "\n")
+
+
+    msg_body = msg_body_rsi + msg_body_200_ema + msg_body_50_ema
 
 
     message = MIMEText(msg_body, "plain")
@@ -198,8 +208,14 @@ def send_email(data_rsi, data_ema, username, password):
 ##                          __main_code_part__
 # ------------------------------------------------------------------------------
 
-rsi_signal = []
-ema_signal = []
+#rsi_signal = []
+#ema_signal = []
+
+# implement lists as dictionaries for clarity
+signal = {}
+signal['RSI'] = []
+signal['EMA_200'] = []
+signal['EMA_50'] = []
 
 for ticker in tickers:
     try:
@@ -218,12 +234,17 @@ for ticker in tickers:
 
         #s __signal_conditions__
         if (df['RSI'].iloc[-1] <= 30):
-            rsi_signal.append(ticker)
+            signal['RSI'].append(ticker)
 
         # was below 200 EMA few days ago but today is above 200 EMA
         # possible long
         if ( (df['EMA_200'].iloc[-5] > df['Adj Close'].iloc[-5]) and (df['EMA_200'].iloc[-1] < df['Adj Close'].iloc[-1]) ):
-            ema_signal.append(ticker)
+            signal['EMA_200'].append(ticker)
+
+        # price in vicinity 50 EMA
+        # possible long or at least alert
+        if ( ((df['EMA_50'].iloc[-1] / df['Adj Close'].iloc[-1]) >= 0.98) and ((df['EMA_50'].iloc[-1] / df['Adj Close'].iloc[-1]) <= 1.02) ) :
+            signal['EMA_50'].append(ticker)
 
 
     except Exception as e:
@@ -231,16 +252,13 @@ for ticker in tickers:
 
 
 
-# implement lists as dictionaries for clarity
-#signal = {}
-#signal['RSI'] = []
-#signal['SMA'] = []
 
+if ( len(signal['RSI']) > 0 ) or ( len(signal['EMA_200']) > 0 ) or ( len(signal['EMA_50']) > 0 ) :
+    rsi_str     = ' '.join(map(str, signal['RSI']))
+    ema_200_str = ' '.join(map(str, signal['EMA_200']))
+    ema_50_str  = ' '.join(map(str, signal['EMA_50']))
 
-if ( len(rsi_signal) > 0 ) or ( len(ema_signal) > 0 ) :
-    rsi_str = ' '.join(map(str, rsi_signal))
-    ema_str = ' '.join(map(str, ema_signal))
-    send_email(rsi_str, ema_str, username, password)
+    send_email(rsi_str, ema_200_str, ema_50_str, username, password)
 
 
 # lockfile cleanup
