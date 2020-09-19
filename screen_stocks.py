@@ -159,7 +159,7 @@ def construct_df(ticker):
 
 
 
-def send_email(data_rsi, data_200_ema, data_50_ema, username, password):
+def send_email(data_rsi, data_200_ema, data_50_ema, data_200_ema_vicinity, username, password):
 
     smtp_ssl_host = 'smtp.gmail.com'
     smtp_ssl_port = 465
@@ -170,20 +170,26 @@ def send_email(data_rsi, data_200_ema, data_50_ema, username, password):
     msg_body_rsi = ("stock ticker RSI around 30 \n"
                 "possible long entry \n"
                 "ticker/s: \n"
-                 + data_rsi + "\n")
+                 + data_rsi + "\n\n")
 
     msg_body_200_ema = ("went above 200 EMA recently \n"
                 "possible long entry \n"
                 "ticker/s: \n"
-                 + data_200_ema + "\n")
+                 + data_200_ema + "\n\n")
 
     msg_body_50_ema = ("in vicinity of 50 EMA \n"
                 "alerting \n"
                 "ticker/s: \n"
-                 + data_50_ema + "\n")
+                 + data_50_ema + "\n\n")
+
+    msg_body_200_ema = ("in vicinity of 200 EMA \n"
+                "strong alert - support/resistance \n"
+                "ticker/s: \n"
+                 + data_200_ema_vicinity + "\n\n")
 
 
-    msg_body = msg_body_rsi + msg_body_200_ema + msg_body_50_ema
+
+    msg_body = msg_body_rsi + msg_body_200_ema + msg_body_50_ema + msg_body_200_ema
 
 
     message = MIMEText(msg_body, "plain")
@@ -216,6 +222,7 @@ signal = {}
 signal['RSI'] = []
 signal['EMA_200'] = []
 signal['EMA_50'] = []
+signal['EMA_200_vicinity'] = []
 
 for ticker in tickers:
     try:
@@ -238,13 +245,29 @@ for ticker in tickers:
 
         # was below 200 EMA few days ago but today is above 200 EMA
         # possible long
-        if ( (df['EMA_200'].iloc[-5] > df['Adj Close'].iloc[-5]) and (df['EMA_200'].iloc[-1] < df['Adj Close'].iloc[-1]) ):
+        if (
+            (df['EMA_200'].iloc[-5] > df['Adj Close'].iloc[-5]) and
+            (df['EMA_200'].iloc[-1] < df['Adj Close'].iloc[-1])
+           ):
             signal['EMA_200'].append(ticker)
 
         # price in vicinity 50 EMA
         # possible long or at least alert
-        if ( ((df['EMA_50'].iloc[-1] / df['Adj Close'].iloc[-1]) >= 0.98) and ((df['EMA_50'].iloc[-1] / df['Adj Close'].iloc[-1]) <= 1.02) ) :
+        if (
+            ((df['EMA_50'].iloc[-1] / df['Adj Close'].iloc[-1]) >= 0.98) and
+            ((df['EMA_50'].iloc[-1] / df['Adj Close'].iloc[-1]) <= 1.02)
+           ):
             signal['EMA_50'].append(ticker)
+
+        # price in vicinity 200 EMA
+        # possible long or at least alert
+        if (
+            ((df['EMA_200'].iloc[-1] / df['Adj Close'].iloc[-1]) >= 0.98) and
+            ((df['EMA_200'].iloc[-1] / df['Adj Close'].iloc[-1]) <= 1.02)
+           ):
+            signal['EMA_200_vicinity'].append(ticker)
+
+
 
 
     except Exception as e:
@@ -252,13 +275,16 @@ for ticker in tickers:
 
 
 
-
-if ( len(signal['RSI']) > 0 ) or ( len(signal['EMA_200']) > 0 ) or ( len(signal['EMA_50']) > 0 ) :
+if ( len(signal['RSI']) > 0 )     or        \
+   ( len(signal['EMA_200']) > 0 ) or        \
+   ( len(signal['EMA_50']) > 0 )  or        \
+   ( len(signal['EMA_200_vicinity']) > 0 )  :
     rsi_str     = ' '.join(map(str, signal['RSI']))
     ema_200_str = ' '.join(map(str, signal['EMA_200']))
     ema_50_str  = ' '.join(map(str, signal['EMA_50']))
+    ema_200_vicinity_str = ' '.join(map(str, signal['EMA_200_vicinity']))
 
-    send_email(rsi_str, ema_200_str, ema_50_str, username, password)
+    send_email(rsi_str, ema_200_str, ema_50_str, ema_200_vicinity_str, username, password)
 
 
 # lockfile cleanup
