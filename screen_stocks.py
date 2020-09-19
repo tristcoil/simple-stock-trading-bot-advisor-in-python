@@ -182,14 +182,14 @@ def send_email(data_rsi, data_200_ema, data_50_ema, data_200_ema_vicinity, usern
                 "ticker/s: \n"
                  + data_50_ema + "\n\n")
 
-    msg_body_200_ema = ("in vicinity of 200 EMA \n"
+    msg_body_200_ema_vicinity = ("in vicinity of 200 EMA \n"
                 "strong alert - support/resistance \n"
                 "ticker/s: \n"
                  + data_200_ema_vicinity + "\n\n")
 
 
 
-    msg_body = msg_body_rsi + msg_body_200_ema + msg_body_50_ema + msg_body_200_ema
+    msg_body = msg_body_rsi + msg_body_200_ema + msg_body_50_ema + msg_body_200_ema_vicinity
 
 
     message = MIMEText(msg_body, "plain")
