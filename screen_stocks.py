@@ -102,7 +102,7 @@ def get_data(ticker):
             pass
 
     # use numerical integer index instead of date
-    ticker_df = ticker_df.reset_index()
+    #ticker_df = ticker_df.reset_index()
     print(ticker_df.head(5))
 
     return ticker_df
@@ -158,8 +158,43 @@ def construct_df(ticker):
     return df
 
 
+def stochastic(data, k_window, d_window, window):
+    # input to function is one column from df
+    # containing closing price or whatever value we want to extract K and D from
 
-def send_email(data_rsi, data_200_ema, data_50_ema, data_200_ema_vicinity, username, password):
+    min_val  = data.rolling(window=window, center=False).min()
+    max_val = data.rolling(window=window, center=False).max()
+
+    stoch = ( (data - min_val) / (max_val - min_val) ) * 100
+
+    K = stoch.rolling(window=k_window, center=False).mean()
+    #K = stoch
+
+    D = K.rolling(window=d_window, center=False).mean()
+
+    return K, D
+
+
+
+def resample(df):
+    # weekly timeframe aggregation
+    agg_dict = {'Open': 'first',
+                'High': 'max',
+                'Low': 'min',
+                'Close': 'last',
+                'Adj Close': 'last',
+                'Volume': 'mean'}
+
+    # resampled dataframe
+    # 'W' means weekly aggregation
+    df_res = df.resample('W').agg(agg_dict)
+
+    return df_res
+
+
+
+
+def send_email(data_rsi, data_200_ema, data_50_ema, data_200_ema_vicinity, data_weekly_stochRSI, username, password):
 
     smtp_ssl_host = 'smtp.gmail.com'
     smtp_ssl_port = 465
@@ -187,9 +222,14 @@ def send_email(data_rsi, data_200_ema, data_50_ema, data_200_ema_vicinity, usern
                 "ticker/s: \n"
                  + data_200_ema_vicinity + "\n\n")
 
+    msg__body_weekly_stochRSI = ("weekly_stochRSI long \n"
+                "rather strong alert \n"
+                "ticker/s: \n"
+                 + data_weekly_stochRSI + "\n\n")
 
 
-    msg_body = msg_body_rsi + msg_body_200_ema + msg_body_50_ema + msg_body_200_ema_vicinity
+    msg_body = msg_body_rsi + msg_body_200_ema + msg_body_50_ema    \
+               + msg_body_200_ema_vicinity + msg__body_weekly_stochRSI
 
 
     message = MIMEText(msg_body, "plain")
@@ -223,6 +263,7 @@ signal['RSI'] = []
 signal['EMA_200'] = []
 signal['EMA_50'] = []
 signal['EMA_200_vicinity'] = []
+signal['weekly_stochRSI'] = []
 
 for ticker in tickers:
     try:
@@ -234,6 +275,10 @@ for ticker in tickers:
         # if last day RSI data (today) is oversold, send mail
         print('ticker:', ticker)
         print('rsi today', df['RSI'].iloc[-1])
+
+        df_res = resample(df)
+        df_res['RSI'] = computeRSI(df_res['Adj Close'], 14)
+        df_res['K'], df_res['D'] = stochastic(df_res['RSI'], 3, 3, 14)
 
         ## RSI day before <= threshold and RSI today above - long signal
         ##if (df['RSI'].iloc[-2] < 30 and df['RSI'].iloc[-1] >= 30):
@@ -267,6 +312,20 @@ for ticker in tickers:
            ):
             signal['EMA_200_vicinity'].append(ticker)
 
+        # weekly stochastic RSI oversold signal
+        thres = 20 # oversold condition for stochRSI
+        # setting benevolent thresholds
+        if (
+            df_res['K'].iloc[-1] <= thres and
+            df_res['D'].iloc[-1] <= thres and
+            ((df_res['K'].iloc[-1] / df_res['D'].iloc[-1]) >= 0.80) and
+            ((df_res['K'].iloc[-1] / df_res['D'].iloc[-1]) <= 1.20)
+           ):
+            #print('found something', df_res['K'].iloc[-i], df_res['D'].iloc[-i] )
+            signal['weekly_stochRSI'].append(ticker)
+        elif ( (df_res['K'].iloc[-1] == 0 ) or ( df_res['D'].iloc[-1] == 0 ) ):
+            #print('indicators are zeros', df_res['K'].iloc[-i])
+            signal['weekly_stochRSI'].append(ticker)
 
 
 
@@ -275,16 +334,18 @@ for ticker in tickers:
 
 
 
-if ( len(signal['RSI']) > 0 )     or        \
-   ( len(signal['EMA_200']) > 0 ) or        \
-   ( len(signal['EMA_50']) > 0 )  or        \
-   ( len(signal['EMA_200_vicinity']) > 0 )  :
+if ( len(signal['RSI']) > 0 )              or        \
+   ( len(signal['EMA_200']) > 0 )          or        \
+   ( len(signal['EMA_50']) > 0 )           or        \
+   ( len(signal['EMA_200_vicinity']) > 0 ) or        \
+   ( len(signal['weekly_stochRSI']) > 0 ) :
     rsi_str     = ' '.join(map(str, signal['RSI']))
     ema_200_str = ' '.join(map(str, signal['EMA_200']))
     ema_50_str  = ' '.join(map(str, signal['EMA_50']))
     ema_200_vicinity_str = ' '.join(map(str, signal['EMA_200_vicinity']))
+    weekly_stochRSI_str = ' '.join(map(str, signal['weekly_stochRSI']))
 
-    send_email(rsi_str, ema_200_str, ema_50_str, ema_200_vicinity_str, username, password)
+    send_email(rsi_str, ema_200_str, ema_50_str, ema_200_vicinity_str, weekly_stochRSI_str, username, password)
 
 
 # lockfile cleanup
