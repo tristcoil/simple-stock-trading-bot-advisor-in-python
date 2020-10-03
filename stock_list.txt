@@ -1,0 +1,210 @@
+TSLA Tesla
+BIDU Baidu
+BABA Alibaba
+SLV Silver
+GLD Gold
+MMM 3M Company  Industrials Industrial Conglomerates
+ABT Abbott Laboratories Health Care Health Care Equipment
+ABBV    AbbVie Inc. Health Care Pharmaceuticals
+ACN Accenture plc   Information Technology  IT Consulting & Other Services
+ATVI    Activision Blizzard Communication Services  Interactive Home Entertainment
+ADBE    Adobe Inc.  Information Technology  Application Software
+AMD Advanced Micro Devices Inc  Information Technology  Semiconductors
+A   Agilent Technologies Inc    Health Care Health Care Equipment
+AKAM    Akamai Technologies Inc Information Technology  Internet Services & Infrastructure
+ARE Alexandria Real Estate Equities Real Estate Office REITs
+GOOG    Alphabet Inc. (Class C) Communication Services  Interactive Media & Services
+AMZN    Amazon.com Inc. Consumer Discretionary  Internet & Direct Marketing Retail
+AAL American Airlines Group Industrials Airlines
+AMT American Tower Corp.    Real Estate Specialized REITs
+AMGN    Amgen Inc.  Health Care Biotechnology
+AIV Apartment Investment & Management   Real Estate Residential REITs
+AAPL    Apple Inc.  Information Technology  Technology Hardware, Storage & Peripherals
+AMAT    Applied Materials Inc.  Information Technology  Semiconductor Equipment
+ADM Archer-Daniels-Midland Co   Consumer Staples    Agricultural Products
+T   AT&T Inc.   Communication Services  Integrated Telecommunication Services
+AVB AvalonBay Communities   Real Estate Residential REITs
+BAC Bank of America Corp    Financials  Diversified Banks
+BRK.B   Berkshire Hathaway  Financials  Multi-Sector Holdings
+BBY Best Buy Co. Inc.   Consumer Discretionary  Computer & Electronics Retail
+BIIB    Biogen Inc. Health Care Biotechnology
+BLK BlackRock   Financials  Asset Management & Custody Banks
+BA  Boeing Company  Industrials Aerospace & Defense
+BXP Boston Properties   Real Estate Office REITs
+BMY Bristol-Myers Squibb    Health Care Health Care Distributors
+AVGO    Broadcom Inc.   Information Technology  Semiconductors
+CPB Campbell Soup   Consumer Staples    Packaged Foods & Meats
+COF Capital One Financial   Financials  Consumer Finance
+CAH Cardinal Health Inc.    Health Care Health Care Distributors
+CCL Carnival Corp.  Consumer Discretionary  Hotels, Resorts & Cruise Lines
+CAT Caterpillar Inc.    Industrials Construction Machinery & Heavy Trucks
+CBOE    Cboe Global Markets Financials  Financial Exchanges & Data
+CBRE    CBRE Group  Real Estate Real Estate Services
+CNC Centene Corporation Health Care Managed Health Care
+CNP CenterPoint Energy  Utilities   Multi-Utilities
+SCHW    Charles Schwab Corporation  Financials  Investment Banking & Brokerage
+CVX Chevron Corp.   Energy  Integrated Oil & Gas
+CMG Chipotle Mexican Grill  Consumer Discretionary  Restaurants
+CI  CIGNA Corp. Health Care Managed Health Care
+CSCO    Cisco Systems   Information Technology  Communications Equipment
+C   Citigroup Inc.  Financials  Diversified Banks
+CLX The Clorox Company  Consumer Staples    Household Products
+CME CME Group Inc.  Financials  Financial Exchanges & Data
+KO  Coca-Cola Company   Consumer Staples    Soft Drinks
+CTSH    Cognizant Technology Solutions  Information Technology  IT Consulting & Other Services
+CL  Colgate-Palmolive   Consumer Staples    Household Products
+CMCSA   Comcast Corp.   Communication Services  Cable & Satellite
+CAG Conagra Brands  Consumer Staples    Packaged Foods & Meats
+ED  Consolidated Edison Utilities   Electric Utilities
+COST    Costco Wholesale Corp.  Consumer Staples    Hypermarkets & Super Centers
+CCI Crown Castle International Corp.    Real Estate Specialized REITs
+CVS CVS Health  Health Care Health Care Services
+DAL Delta Air Lines Inc.    Industrials Airlines
+DLR Digital Realty Trust Inc    Real Estate Specialized REITs
+D   Dominion Energy Utilities   Electric Utilities
+DPZ Domino's Pizza Consumer Discretionary  Restaurants
+DTE DTE Energy Co.  Utilities   Multi-Utilities
+DUK Duke Energy Utilities   Electric Utilities
+DRE Duke Realty Corp    Real Estate Industrial REITs
+EBAY    eBay Inc.   Consumer Discretionary  Internet & Direct Marketing Retail
+EA  Electronic Arts Communication Services  Interactive Home Entertainment
+EMR Emerson Electric Company    Industrials Electrical Components & Equipment
+ETR Entergy Corp.   Utilities   Electric Utilities
+EFX Equifax Inc.    Industrials Research & Consulting Services
+EQIX    Equinix Real Estate Specialized REITs
+EQR Equity Residential  Real Estate Residential REITs
+ESS Essex Property Trust, Inc.  Real Estate Residential REITs
+EL  Estée Lauder Companies  Consumer Staples    Personal Products
+EXC Exelon Corp.    Utilities   Multi-Utilities
+EXPE    Expedia Group   Consumer Discretionary  Internet & Direct Marketing Retail
+XOM Exxon Mobil Corp.   Energy  Integrated Oil & Gas
+FFIV    F5 Networks Information Technology  Communications Equipment
+FB  Facebook, Inc.  Communication Services  Interactive Media & Services
+FRT Federal Realty Investment Trust Real Estate Retail REITs
+FDX FedEx Corporation   Industrials Air Freight & Logistics
+FE  FirstEnergy Corp    Utilities   Electric Utilities
+F   Ford Motor Company  Consumer Discretionary  Automobile Manufacturers
+GPS Gap Inc.    Consumer Discretionary  Apparel Retail
+GRMN    Garmin Ltd. Consumer Discretionary  Consumer Electronics
+IT  Gartner Inc Information Technology  IT Consulting & Other Services
+GD  General Dynamics    Industrials Aerospace & Defense
+GE  General Electric    Industrials Industrial Conglomerates
+GIS General Mills   Consumer Staples    Packaged Foods & Meats
+GM  General Motors  Consumer Discretionary  Automobile Manufacturers
+GILD    Gilead Sciences Health Care Biotechnology
+GS  Goldman Sachs Group Financials  Investment Banking & Brokerage
+GWW Grainger (W.W.) Inc.    Industrials Industrial Machinery
+HAL Halliburton Co. Energy  Oil & Gas Equipment & Services
+HBI Hanesbrands Inc Consumer Discretionary  Apparel, Accessories & Luxury Goods
+HAS Hasbro Inc. Consumer Discretionary  Leisure Products
+PEAK    Healthpeak Properties   Real Estate Health Care REITs
+HPE Hewlett Packard Enterprise  Information Technology  Technology Hardware, Storage & Peripherals
+HLT Hilton Worldwide Holdings Inc   Consumer Discretionary  Hotels, Resorts & Cruise Lines
+HD  Home Depot  Consumer Discretionary  Home Improvement Retail
+HON Honeywell Int'l Inc.   Industrials Industrial Conglomerates
+HRL Hormel Foods Corp.  Consumer Staples    Packaged Foods & Meats
+HST Host Hotels & Resorts   Real Estate Hotel & Resort REITs
+HPQ HP Inc. Information Technology  Technology Hardware, Storage & Peripherals
+HUM Humana Inc. Health Care Managed Health Care
+ILMN    Illumina Inc    Health Care Life Sciences Tools & Services
+INTC    Intel Corp. Information Technology  Semiconductors
+ICE Intercontinental Exchange   Financials  Financial Exchanges & Data
+IBM International Business Machines Information Technology  IT Consulting & Other Services
+INTU    Intuit Inc. Information Technology  Application Software
+ISRG    Intuitive Surgical Inc. Health Care Health Care Equipment
+IVZ Invesco Ltd.    Financials  Asset Management & Custody Banks
+IRM Iron Mountain Incorporated  Real Estate Specialized REITs
+JNJ Johnson & Johnson   Health Care Pharmaceuticals
+JPM JPMorgan Chase & Co.    Financials  Diversified Banks
+JNPR    Juniper Networks    Information Technology  Communications Equipment
+K   Kellogg Co. Consumer Staples    Packaged Foods & Meats
+KMB Kimberly-Clark  Consumer Staples    Household Products
+KIM Kimco Realty    Real Estate Retail REITs
+KMI Kinder Morgan   Energy  Oil & Gas Storage & Transportation
+KSS Kohl's Corp.   Consumer Discretionary  General Merchandise Stores
+KHC Kraft Heinz Co  Consumer Staples    Packaged Foods & Meats
+KR  Kroger Co.  Consumer Staples    Food Retail
+LB  L Brands Inc.   Consumer Discretionary  Apparel Retail
+LEG Leggett & Platt Consumer Discretionary  Home Furnishings
+LIN Linde plc   Materials   Industrial Gases
+LMT Lockheed Martin Corp.   Industrials Aerospace & Defense
+LOW Lowe's Cos.    Consumer Discretionary  Home Improvement Retail
+MAR Marriott Int'l.    Consumer Discretionary  Hotels, Resorts & Cruise Lines
+MA  Mastercard Inc. Information Technology  Data Processing & Outsourced Services
+MCD McDonald's Corp.   Consumer Discretionary  Restaurants
+MDT Medtronic plc   Health Care Health Care Equipment
+MRK Merck & Co. Health Care Pharmaceuticals
+MET MetLife Inc.    Financials  Life & Health Insurance
+MGM MGM Resorts International   Consumer Discretionary  Casinos & Gaming
+MU  Micron Technology   Information Technology  Semiconductors
+MSFT    Microsoft Corp. Information Technology  Systems Software
+MAA Mid-America Apartments  Real Estate Residential REITs
+MNST    Monster Beverage    Consumer Staples    Soft Drinks
+MCO Moody's Corp   Financials  Financial Exchanges & Data
+MS  Morgan Stanley  Financials  Investment Banking & Brokerage
+MSI Motorola Solutions Inc. Information Technology  Communications Equipment
+MSCI    MSCI Inc    Financials  Financial Exchanges & Data
+NDAQ    Nasdaq, Inc.    Financials  Financial Exchanges & Data
+NFLX    Netflix Inc.    Communication Services  Movies & Entertainment
+NWL Newell Brands   Consumer Discretionary  Housewares & Specialties
+NEE NextEra Energy  Utilities   Multi-Utilities
+NKE Nike, Inc.  Consumer Discretionary  Apparel, Accessories & Luxury Goods
+NSC Norfolk Southern Corp.  Industrials Railroads
+NOC Northrop Grumman    Industrials Aerospace & Defense
+NCLH    Norwegian Cruise Line Holdings  Consumer Discretionary  Hotels, Resorts & Cruise Lines
+NVDA    Nvidia Corporation  Information Technology  Semiconductors
+OXY Occidental Petroleum    Energy  Oil & Gas Exploration & Production
+OKE ONEOK   Energy  Oil & Gas Storage & Transportation
+ORCL    Oracle Corp.    Information Technology  Application Software
+PYPL    PayPal  Information Technology  Data Processing & Outsourced Services
+PEP PepsiCo Inc.    Consumer Staples    Soft Drinks
+PFE Pfizer Inc. Health Care Pharmaceuticals
+PPL PPL Corp.   Utilities   Electric Utilities
+PG  Procter & Gamble    Consumer Staples    Personal Products
+PLD Prologis    Real Estate Industrial REITs
+PRU Prudential Financial    Financials  Life & Health Insurance
+PSA Public Storage  Real Estate Specialized REITs
+QCOM    QUALCOMM Inc.   Information Technology  Semiconductors
+RL  Ralph Lauren Corporation    Consumer Discretionary  Apparel, Accessories & Luxury Goods
+RTX Raytheon Technologies   Industrials Aerospace & Defense
+O   Realty Income Corporation   Real Estate Retail REITs
+REG Regency Centers Corporation Real Estate Retail REITs
+REGN    Regeneron Pharmaceuticals   Health Care Biotechnology
+RCL Royal Caribbean Group   Consumer Discretionary  Hotels, Resorts & Cruise Lines
+SPGI    S&P Global, Inc.    Financials  Financial Exchanges & Data
+CRM Salesforce.com  Information Technology  Application Software
+STX Seagate Technology  Information Technology  Technology Hardware, Storage & Peripherals
+SPG Simon Property Group Inc    Real Estate Retail REITs
+SWKS    Skyworks Solutions  Information Technology  Semiconductors
+SLG SL Green Realty Real Estate Office REITs
+SO  Southern Company    Utilities   Electric Utilities
+LUV Southwest Airlines  Industrials Airlines
+SWK Stanley Black & Decker  Industrials Industrial Machinery
+SBUX    Starbucks Corp. Consumer Discretionary  Restaurants
+TMUS    T-Mobile US Communication Services  Wireless Telecommunication Services
+TTWO    Take-Two Interactive    Communication Services  Interactive Home Entertainment
+TGT Target Corp.    Consumer Discretionary  General Merchandise Stores
+TWTR    Twitter, Inc.   Communication Services  Interactive Media & Services
+UNP Union Pacific Corp  Industrials Railroads
+UAL United Airlines Holdings    Industrials Airlines
+UNH United Health Group Inc.    Health Care Managed Health Care
+UPS United Parcel Service   Industrials Air Freight & Logistics
+UHS Universal Health Services   Health Care Health Care Facilities
+VTR Ventas Inc  Real Estate Health Care REITs
+VZ  Verizon Communications  Communication Services  Integrated Telecommunication Services
+V   Visa Inc.   Information Technology  Data Processing & Outsourced Services
+VNO Vornado Realty Trust    Real Estate Office REITs
+WMT Walmart Consumer Staples    Hypermarkets & Super Centers
+WBA Walgreens Boots Alliance    Consumer Staples    Drug Retail
+DIS The Walt Disney Company Communication Services  Movies & Entertainment
+WM  Waste Management Inc.   Industrials Environmental & Facilities Services
+WFC Wells Fargo Financials  Diversified Banks
+WELL    Welltower Inc.  Real Estate Health Care REITs
+WDC Western Digital Information Technology  Technology Hardware, Storage & Peripherals
+WU  Western Union Co    Information Technology  Data Processing & Outsourced Services
+WY  Weyerhaeuser    Real Estate Specialized REITs
+WHR Whirlpool Corp. Consumer Discretionary  Household Appliances
+WYNN    Wynn Resorts Ltd    Consumer Discretionary  Casinos & Gaming
+XRX Xerox   Information Technology  Technology Hardware, Storage & Peripherals
+ZBRA    Zebra Technologies  Information Technology  Electronic Equipment & Instruments
+ZTS Zoetis  Health Care Pharmaceuticals
