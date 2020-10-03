@@ -20,7 +20,6 @@
 #!pip3 install pandas_datareader
 
 
-
 # create lock file quickly to prevent cron spinning infinite number of
 # script instances
 import sys
@@ -55,7 +54,6 @@ import yfinance as yahoo_finance
 
 import smtplib
 from email.mime.text import MIMEText
-
 
 
 #                           ___variables___
@@ -218,7 +216,7 @@ def send_email(data_rsi, data_200_ema, data_50_ema, data_200_ema_vicinity, data_
                  + data_50_ema + "\n\n")
 
     msg_body_200_ema_vicinity = ("in vicinity of 200 EMA \n"
-                "strong alert - support/resistance \n"
+                "strong alert - current/upcoming support (x resistance) \n"
                 "ticker/s: \n"
                  + data_200_ema_vicinity + "\n\n")
 
@@ -249,13 +247,82 @@ def send_email(data_rsi, data_200_ema, data_50_ema, data_200_ema_vicinity, data_
     except:
         print("Error: unable to send email")
 
+def support_forming(df, n=14):
+    # if 70% of datapoints for last n days are above EMA
+    # we conclude that EMA is or soon will be forming support
+    cnt = 0
+    for i in range(0, n):
+        if df['Adj Close'].iloc[-i] >= df['EMA_200'].iloc[-i]:
+            cnt += 1
+
+    # mostly above EMA and today above or equal
+    # if it falls through support, we skip it
+    if cnt/n >= 0.7 and (df['Adj Close'].iloc[-1] >= df['EMA_200'].iloc[-1]):
+        return True
+    else:
+        return False
+
+
+def conditions(df, df_res):
+    ## __ EMAILING CONDITIONS __
+
+    ## RSI day before <= threshold and RSI today above - long signal
+    ##if (df['RSI'].iloc[-2] < 30 and df['RSI'].iloc[-1] >= 30):
+    ##    long_list.append(ticker)
+
+    #s __signal_conditions__
+    if (df['RSI'].iloc[-1] <= 30):
+        signal['RSI'].append(ticker)
+
+    # was below 200 EMA few days ago but today is above 200 EMA
+    # possible long
+    if (
+        (df['EMA_200'].iloc[-5] > df['Adj Close'].iloc[-5]) and
+        (df['EMA_200'].iloc[-1] < df['Adj Close'].iloc[-1])
+       ):
+        signal['EMA_200'].append(ticker)
+
+    # price in vicinity 50 EMA
+    # possible long or at least alert
+    if (
+        ((df['EMA_50'].iloc[-1] / df['Adj Close'].iloc[-1]) >= 0.98) and
+        ((df['EMA_50'].iloc[-1] / df['Adj Close'].iloc[-1]) <= 1.02)
+       ):
+        signal['EMA_50'].append(ticker)
+
+    # price in vicinity 200 EMA
+    # possible long or at least alert
+    if (
+        ((df['EMA_200'].iloc[-1] / df['Adj Close'].iloc[-1]) >= 0.98) and
+        ((df['EMA_200'].iloc[-1] / df['Adj Close'].iloc[-1]) <= 1.02) and
+        support_forming(df, 14)
+       ):
+        signal['EMA_200_vicinity'].append(ticker)
+
+    # weekly stochastic RSI oversold signal
+    thres = 20 # oversold condition for stochRSI
+    # setting benevolent thresholds
+    if (
+        df_res['K'].iloc[-1] <= thres and
+        df_res['D'].iloc[-1] <= thres and
+        ((df_res['K'].iloc[-1] / df_res['D'].iloc[-1]) >= 0.80) and
+        ((df_res['K'].iloc[-1] / df_res['D'].iloc[-1]) <= 1.20)
+       ):
+        #print('found something', df_res['K'].iloc[-i], df_res['D'].iloc[-i] )
+        signal['weekly_stochRSI'].append(ticker)
+    elif ( (df_res['K'].iloc[-1] == 0 ) or ( df_res['D'].iloc[-1] == 0 ) ):
+        #print('indicators are zeros', df_res['K'].iloc[-i])
+        signal['weekly_stochRSI'].append(ticker)
+
+    return None
+
+
+
+
 
 
 ##                          __main_code_part__
 # ------------------------------------------------------------------------------
-
-#rsi_signal = []
-#ema_signal = []
 
 # implement lists as dictionaries for clarity
 signal = {}
@@ -280,53 +347,9 @@ for ticker in tickers:
         df_res['RSI'] = computeRSI(df_res['Adj Close'], 14)
         df_res['K'], df_res['D'] = stochastic(df_res['RSI'], 3, 3, 14)
 
-        ## RSI day before <= threshold and RSI today above - long signal
-        ##if (df['RSI'].iloc[-2] < 30 and df['RSI'].iloc[-1] >= 30):
-        ##    long_list.append(ticker)
 
-        #s __signal_conditions__
-        if (df['RSI'].iloc[-1] <= 30):
-            signal['RSI'].append(ticker)
-
-        # was below 200 EMA few days ago but today is above 200 EMA
-        # possible long
-        if (
-            (df['EMA_200'].iloc[-5] > df['Adj Close'].iloc[-5]) and
-            (df['EMA_200'].iloc[-1] < df['Adj Close'].iloc[-1])
-           ):
-            signal['EMA_200'].append(ticker)
-
-        # price in vicinity 50 EMA
-        # possible long or at least alert
-        if (
-            ((df['EMA_50'].iloc[-1] / df['Adj Close'].iloc[-1]) >= 0.98) and
-            ((df['EMA_50'].iloc[-1] / df['Adj Close'].iloc[-1]) <= 1.02)
-           ):
-            signal['EMA_50'].append(ticker)
-
-        # price in vicinity 200 EMA
-        # possible long or at least alert
-        if (
-            ((df['EMA_200'].iloc[-1] / df['Adj Close'].iloc[-1]) >= 0.98) and
-            ((df['EMA_200'].iloc[-1] / df['Adj Close'].iloc[-1]) <= 1.02)
-           ):
-            signal['EMA_200_vicinity'].append(ticker)
-
-        # weekly stochastic RSI oversold signal
-        thres = 20 # oversold condition for stochRSI
-        # setting benevolent thresholds
-        if (
-            df_res['K'].iloc[-1] <= thres and
-            df_res['D'].iloc[-1] <= thres and
-            ((df_res['K'].iloc[-1] / df_res['D'].iloc[-1]) >= 0.80) and
-            ((df_res['K'].iloc[-1] / df_res['D'].iloc[-1]) <= 1.20)
-           ):
-            #print('found something', df_res['K'].iloc[-i], df_res['D'].iloc[-i] )
-            signal['weekly_stochRSI'].append(ticker)
-        elif ( (df_res['K'].iloc[-1] == 0 ) or ( df_res['D'].iloc[-1] == 0 ) ):
-            #print('indicators are zeros', df_res['K'].iloc[-i])
-            signal['weekly_stochRSI'].append(ticker)
-
+        ## __ EMAILING CONDITIONS __
+        conditions(df, df_res)
 
 
     except Exception as e:
@@ -334,11 +357,15 @@ for ticker in tickers:
 
 
 
-if ( len(signal['RSI']) > 0 )              or        \
-   ( len(signal['EMA_200']) > 0 )          or        \
-   ( len(signal['EMA_50']) > 0 )           or        \
-   ( len(signal['EMA_200_vicinity']) > 0 ) or        \
-   ( len(signal['weekly_stochRSI']) > 0 ) :
+##if ( len(signal['RSI']) > 0 )              or        \
+##   ( len(signal['EMA_200']) > 0 )          or        \
+##   ( len(signal['EMA_50']) > 0 )           or        \
+##   ( len(signal['EMA_200_vicinity']) > 0 ) or        \
+##   ( len(signal['weekly_stochRSI']) > 0 ) :
+
+
+# if at least one dict value is non empty list
+if sum( 1 for i in signal.values() if len(i) > 0 ) > 0:
     rsi_str     = ' '.join(map(str, signal['RSI']))
     ema_200_str = ' '.join(map(str, signal['EMA_200']))
     ema_50_str  = ' '.join(map(str, signal['EMA_50']))
@@ -348,6 +375,6 @@ if ( len(signal['RSI']) > 0 )              or        \
     send_email(rsi_str, ema_200_str, ema_50_str, ema_200_vicinity_str, weekly_stochRSI_str, username, password)
 
 
+
 # lockfile cleanup
 os.remove(lockfile)
-
